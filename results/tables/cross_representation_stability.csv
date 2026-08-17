@@ -1,0 +1,41 @@
+feature,representation_a,representation_b,n,spearman_rho,p_value,fdr_q
+path_length,LSA-256,binary Jaccard,3226,0.9574422961026928,0.0,0.0
+path_length,LSA-256,char-ngram hash,3226,0.9386493695533115,0.0,0.0
+path_length,LSA-256,random-text control,3226,0.877693168968918,0.0,0.0
+path_length,LSA-256,word TF-IDF,3226,0.9523367428370829,0.0,0.0
+path_length,binary Jaccard,char-ngram hash,3226,0.9532060532236399,0.0,0.0
+path_length,binary Jaccard,random-text control,3226,0.9092042115055703,0.0,0.0
+path_length,binary Jaccard,word TF-IDF,3226,0.9808431427712841,0.0,0.0
+path_length,char-ngram hash,random-text control,3226,0.8817726410215662,0.0,0.0
+path_length,char-ngram hash,word TF-IDF,3226,0.9499571120182472,0.0,0.0
+path_length,random-text control,word TF-IDF,3226,0.9027351904249318,0.0,0.0
+displacement,LSA-256,binary Jaccard,3226,0.7479565395464395,0.0,0.0
+displacement,LSA-256,char-ngram hash,3226,0.6284794877763699,0.0,0.0
+displacement,LSA-256,random-text control,3226,0.014348919955383534,0.415235790275226,0.4370903055528695
+displacement,LSA-256,word TF-IDF,3226,0.7144163372936957,0.0,0.0
+displacement,binary Jaccard,char-ngram hash,3226,0.695003950009037,0.0,0.0
+displacement,binary Jaccard,random-text control,3226,0.002600378606447544,0.8826276577622333,0.9052591361663931
+displacement,binary Jaccard,word TF-IDF,3226,0.8459606289494354,0.0,0.0
+displacement,char-ngram hash,random-text control,3226,0.0005576488581460762,0.9747423931023206,0.9747423931023207
+displacement,char-ngram hash,word TF-IDF,3226,0.6316371282950503,0.0,0.0
+displacement,random-text control,word TF-IDF,3226,0.021732540598967696,0.21719181785677774,0.2348019652505705
+spiral_ratio,LSA-256,binary Jaccard,3226,0.978351450185847,0.0,0.0
+spiral_ratio,LSA-256,char-ngram hash,3226,0.9691629245192223,0.0,0.0
+spiral_ratio,LSA-256,random-text control,3226,0.9403807588986661,0.0,0.0
+spiral_ratio,LSA-256,word TF-IDF,3226,0.9772376879656449,0.0,0.0
+spiral_ratio,binary Jaccard,char-ngram hash,3226,0.9796159551711069,0.0,0.0
+spiral_ratio,binary Jaccard,random-text control,3226,0.964899762001755,0.0,0.0
+spiral_ratio,binary Jaccard,word TF-IDF,3226,0.9891895163093765,0.0,0.0
+spiral_ratio,char-ngram hash,random-text control,3226,0.9432486833439969,0.0,0.0
+spiral_ratio,char-ngram hash,word TF-IDF,3226,0.9782840448586373,0.0,0.0
+spiral_ratio,random-text control,word TF-IDF,3226,0.9532185377849672,0.0,0.0
+turn_curvature,LSA-256,binary Jaccard,3226,0.964135118883098,0.0,0.0
+turn_curvature,LSA-256,char-ngram hash,3226,0.953251499822115,0.0,0.0
+turn_curvature,LSA-256,random-text control,3226,0.9060349012064289,0.0,0.0
+turn_curvature,LSA-256,word TF-IDF,3226,0.9619555462443434,0.0,0.0
+turn_curvature,binary Jaccard,char-ngram hash,3226,0.9654951483053406,0.0,0.0
+turn_curvature,binary Jaccard,random-text control,3226,0.9558308954507978,0.0,0.0
+turn_curvature,binary Jaccard,word TF-IDF,3226,0.983274120084598,0.0,0.0
+turn_curvature,char-ngram hash,random-text control,3226,0.9131303500930816,0.0,0.0
+turn_curvature,char-ngram hash,word TF-IDF,3226,0.9689733367312672,0.0,0.0
+turn_curvature,random-text control,word TF-IDF,3226,0.9335511457435891,0.0,0.0

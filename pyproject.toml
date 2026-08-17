@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "spiral-inquiry-geometry"
+version = "2.0.0"
+description = "Reproducible analyses for Spiral Inquiry Geometry on QuestBench and AskBench"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+authors = [{name="Mohammad Amir Khusru Akhtar"}]
+dependencies = ["numpy>=1.26,<3","pandas>=2.0,<3","scipy>=1.11,<2","scikit-learn>=1.4,<2","networkx>=3.2,<4","matplotlib>=3.8,<4"]
+[tool.setuptools.packages.find]
+where=["src"]

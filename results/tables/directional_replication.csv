@@ -1,0 +1,5 @@
+feature,expected_direction,representations,direction_matches,fdr_significant_matches,turn_adjusted_direction_matches,turn_adjusted_fdr_significant_matches,turns_tokens_direction_matches,turns_tokens_fdr_significant_matches
+path_length,positive,4,4,4,0,0,1,0
+spiral_ratio,positive,4,4,4,4,2,3,1
+turn_curvature,positive,4,4,4,0,0,0,0
+displacement,non-positive,4,4,4,4,4,4,4
