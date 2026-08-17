@@ -1,14 +1,256 @@
-# Reproducibility specification
+# Reproducibility
 
-- Random seed: 2026.
-- QuestBench splits: grouped by underlying problem instance; no candidate from one instance crosses train/test.
-- Ground-truth candidate identity and held-out values are outcomes only, not predictor features.
-- AskBench trajectory states: perturbed initial prompt plus intermediate assistant clarification questions; final answers are excluded from geometry.
-- AskBench representation: stateless `HashingVectorizer`, character 3-5 grams, 8192 features, L2 normalization; distance is cosine distance.
-- AskBench complexity outcome: number of supplied `required_points` (AskMind) or `misleading_points` (AskOverconfidence).
-- No proprietary LLM/API call is needed for the reported analysis.
-- The official AskBench judge accuracy/coverage metrics are not re-created or claimed.
+This document describes how to reproduce the computational results for:
 
+> Akhtar, M. A. K. (2026). *Inquiry Has Geometry: A Mathematical Theory of Recursive Question Transformation* (Version V1). Zenodo.  
+> https://doi.org/10.5281/zenodo.21977561
 
-## Representation audit
-`run_all.py` also executes `sig.representation_robustness`. It holds all 3,226 AskMind trajectories fixed and changes only the state representation/metric. Outputs include `representation_robustness.csv`, `ordinal_incremental_value.csv`, `cross_representation_stability.csv`, `turn_adjusted_spiral_stability.csv`, and associated PDF/PNG figures. The random-text control is deterministic under seed 2026.
+Repository:
+
+https://github.com/Arithmetic-Power-Geometry/SIG
+
+## 1. Reproducibility scope
+
+The repository contains the SIG source code, tests, workflow scripts,
+derived outputs, tables, figures, and run metadata.
+
+The empirical analyses use QuestBench and AskBench. Raw third-party
+benchmark data are not relicensed by this repository. The automated
+full-reproduction workflow can obtain the required resources from their
+documented upstream sources.
+
+See `data/README.md` for dataset provenance and expected paths.
+
+## 2. Environment
+
+A supported Python 3 environment is required. The GitHub Actions workflow
+uses the Python version specified in the workflow configuration.
+
+From the repository root:
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+If editable installation is supported by the current package:
+
+```bash
+python -m pip install -e .
+```
+
+## 3. Fast verification
+
+To run the workflow using available checked-in/derived resources:
+
+```bash
+python run_all.py
+```
+
+Run the unit tests independently:
+
+```bash
+pytest -q
+```
+
+## 4. Full reconstruction from raw benchmark data
+
+After the required QuestBench and AskBench files have been obtained and
+placed according to `data/README.md`, run:
+
+```bash
+python run_all.py --from-raw
+```
+
+### Windows
+
+```text
+run_all.bat
+```
+
+### Linux/macOS
+
+```bash
+./run_all.sh
+```
+
+## 5. Representation-robustness analysis
+
+The representation-robustness experiment reuses the same AskMind
+trajectories and evaluates SIG under multiple representations/metrics,
+including a deterministic negative control.
+
+Run:
+
+```bash
+python run_representation_robustness.py
+```
+
+The analysis includes the substantive conditions described in the
+associated manuscript, including character n-gram hashing, word TF-IDF,
+LSA-256, binary Jaccard geometry, and a random-text negative control.
+
+## 6. GitHub Actions full reproduction
+
+The repository includes an automated workflow.
+
+In GitHub:
+
+```text
+Actions → SIG Full Reproduction → Run workflow
+```
+
+The workflow is designed to:
+
+1. check out the repository;
+2. configure Python;
+3. install dependencies;
+4. obtain required benchmark resources from documented upstream sources;
+5. reconstruct the analysis from raw data;
+6. run representation-robustness analyses;
+7. run the test suite;
+8. regenerate tables and figures; and
+9. upload generated results as a workflow artifact.
+
+The temporary raw datasets used by the runner do not need to be committed
+to the repository.
+
+## 7. Expected data structure
+
+The documented raw-data layout is:
+
+```text
+data/
+├── README.md
+├── questbench/
+│   ├── GSM-Q.csv
+│   ├── GSME-Q.csv
+│   ├── Logic-Q.csv
+│   └── Planning-Q.csv
+└── askbench/
+    ├── train/
+    │   ├── mind.jsonl
+    │   └── overconfidence.jsonl
+    └── eval/
+        ├── ask_mind.jsonl
+        ├── ask_mind_bbhde.jsonl
+        ├── ask_mind_gpqade.jsonl
+        ├── ask_mind_math500de.jsonl
+        ├── ask_mind_medqade.jsonl
+        └── ask_overconfidence.jsonl
+```
+
+Consult `data/README.md` before relying on these paths, because upstream
+dataset organization can change.
+
+## 8. AskBench trajectory handling
+
+The dataset version used in the study contains:
+
+```text
+13,094 total training JSONL rows
+6,547 usable multi-turn trajectories
+3,226 AskMind trajectories
+3,321 AskOverconfidence trajectories
+```
+
+Only records with usable `conversation_history` are treated as observed
+multi-turn inquiry trajectories.
+
+## 9. Generated outputs
+
+Generated outputs are written under:
+
+```text
+results/
+```
+
+Typical outputs include:
+
+```text
+results/
+├── figures/
+├── tables/
+├── askbench_eval_geometry.csv
+├── askbench_trajectory_features.csv
+├── candidate_features.csv
+├── representation_trajectory_features.csv
+└── run_manifest.json
+```
+
+The exact output set can evolve with the software version. The run
+manifest and GitHub Actions artifact should be used to identify outputs
+generated by a particular reproduction run.
+
+## 10. Result consistency
+
+For a released manuscript version, the intended consistency relation is:
+
+```text
+manuscript reported values
+        =
+repository authoritative results
+        =
+latest successful full-reproduction artifact
+```
+
+Do not mix result files from older and newer workflow versions.
+
+For the V1 manuscript, the reported nonlinear Logic-Q values include:
+
+```text
+ROC-AUC: 0.839 (rounded)
+Average precision: 0.480 (rounded)
+Top-1 accuracy: 0.552 (rounded)
+```
+
+Planning-Q reports:
+
+```text
+ROC-AUC: 0.945 (rounded)
+Average precision: 0.902 (rounded)
+Top-1 accuracy: 0.365 (rounded)
+```
+
+## 11. Robustness and falsification logic
+
+The robustness analysis intentionally includes a content-independent
+random-text control.
+
+Raw path statistics may increase mechanically with trajectory length.
+Accordingly, the stricter analysis controls clarification-turn count and
+question-token volume and asks whether spiral ratio provides incremental
+information beyond these quantities.
+
+This design is intended to distinguish representation-stable structure
+from artifacts of trajectory length.
+
+## 12. Troubleshooting
+
+### Missing raw dataset
+
+If execution reports a `FileNotFoundError` under `data/questbench/` or
+`data/askbench/`, verify the paths against `data/README.md`.
+
+### GitHub Actions succeeds but no artifact appears
+
+Confirm that the workflow contains an `actions/upload-artifact` step and
+that its path includes `results/`.
+
+### Results disagree with the manuscript
+
+Confirm that you are using outputs from the current full-reproduction
+workflow rather than legacy result files or an older run manifest.
+
+## 13. Citation
+
+If you use SIG or this reproducibility package, cite:
+
+> Akhtar, M. A. K. (2026). *Inquiry Has Geometry: A Mathematical Theory of Recursive Question Transformation* (Version V1). Zenodo. https://doi.org/10.5281/zenodo.21977561
+
+## 14. Licensing
+
+Original SIG software is released under Apache License 2.0. Third-party
+datasets and dependencies remain under their respective upstream terms.
+
+See `LICENSE`, `NOTICE`, and `data/README.md`.
