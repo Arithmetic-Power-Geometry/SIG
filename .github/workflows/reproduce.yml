@@ -1,0 +1,20 @@
+name: Reproduce SIG results
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - run: pytest -q
+      - run: python run_all.py --from-raw
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sig-results
+          path: results/
