@@ -264,9 +264,12 @@ This keeps benchmark provenance explicit while allowing the reported analyses to
 
 ## Conceptual Origin
 
-The five inquiry modes motivating the operator interpretation—**Clarifying, Causal, Ethical, Transformational, and Meta**—originate in the author's *The Spiral Question Ladder: See Differently. Think Deeper. Redesign Everything*.
+The five inquiry modes motivating the operator interpretation—**Clarifying, Causal, Ethical, Transformational, and Meta**—originate in:
 
-The mathematical definitions, theorems, trajectory geometry, metrics, representation-robustness analyses, and cross-benchmark empirical validation constituting **Spiral Inquiry Geometry** are developed in the associated research paper.
+> **Akhtar, M. A. K. (2025). *The Spiral Question Ladder: See Differently. Think Deeper. Redesign Everything*. Amazon.**  
+> https://a.co/d/0b6ipgQz
+
+The book provides the conceptual origin of these inquiry modes. The mathematical definitions, theorems, trajectory geometry, metrics, representation-robustness analyses, and cross-benchmark empirical validation constituting **Spiral Inquiry Geometry (SIG)** are distinct contributions developed in the associated research paper.
 
 ---
 
