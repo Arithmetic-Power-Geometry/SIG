@@ -1,5 +1,45 @@
-Spiral Inquiry Geometry (SIG) Reproducibility Software
+Spiral Inquiry Geometry (SIG)
 Copyright 2026 Mohammad Amir Khusru Akhtar
-Licensed under the Apache License, Version 2.0.
 
-Third-party benchmark data are included only for reproducibility and remain subject to their original upstream licenses/terms. The Apache-2.0 license applies to the original SIG software, not to third-party datasets.
+Associated research work:
+
+Akhtar, M. A. K. (2026).
+Inquiry Has Geometry: A Mathematical Theory of Recursive Question Transformation
+(Version V1). Zenodo.
+https://doi.org/10.5281/zenodo.21977561
+
+Repository:
+https://github.com/Arithmetic-Power-Geometry/SIG
+
+ORIGINAL SOFTWARE
+The original SIG software in this repository is released under the
+Apache License 2.0 except where otherwise stated.
+
+THIRD-PARTY DATA
+The empirical workflow uses third-party research benchmarks, including
+QuestBench and AskBench. These datasets are not relicensed by this
+repository. Their original licenses, terms of use, attribution
+requirements, and citation requirements remain in force.
+
+Raw third-party benchmark data are not required to be committed to the
+SIG repository. See data/README.md for upstream sources, expected file
+names, directory structure, and reproduction instructions.
+
+THIRD-PARTY SOFTWARE AND MODELS
+Python packages, pretrained representations/models, GitHub Actions, and
+other dependencies used by the reproduction workflow remain subject to
+their own licenses and terms. Inclusion in requirements, scripts, or
+workflow configuration does not imply relicensing by the SIG project.
+
+CONCEPTUAL PROVENANCE
+The five inquiry modes motivating the operator interpretation—
+Clarifying, Causal, Ethical, Transformational, and Meta—originate in
+the author's The Spiral Question Ladder: See Differently. Think Deeper.
+Redesign Everything. The mathematical definitions, theorems, metrics,
+trajectory geometry, representation-robustness analyses, and empirical
+validation constituting Spiral Inquiry Geometry are developed in the
+associated research work.
+
+Users of third-party resources are responsible for checking the current
+upstream licensing and citation requirements before redistribution or
+reuse.
