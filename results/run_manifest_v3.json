@@ -1,0 +1,13 @@
+{
+  "seed": 2026,
+  "questbench_candidate_rows": 126500,
+  "questbench_instances": 11790,
+  "askbench_raw_rows": 13094,
+  "askbench_usable_trajectories": 6547,
+  "askbench_eval_rows": 3626,
+  "python": "3.11.15",
+  "numpy": "2.4.6",
+  "pandas": "2.3.3",
+  "full_from_raw": true,
+  "representation_robustness": "char-ngram hash; word TF-IDF; LSA-256; binary Jaccard; random-text control"
+}

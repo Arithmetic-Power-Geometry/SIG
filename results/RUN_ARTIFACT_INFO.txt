@@ -1,0 +1,51 @@
+SIG Full Reproduction
+Commit: 9cbf44031e91b5916a25b8d23fa7c5d3ac7c5bd8
+Workflow run: 32011039598
+Python:
+Python 3.11.15
+
+Generated files:
+results/RUN_ARTIFACT_INFO.txt
+results/askbench_eval_geometry.csv
+results/askbench_trajectory_features.csv
+results/candidate_features.csv
+results/figures/askbench_eval_rho.pdf
+results/figures/askbench_eval_rho.png
+results/figures/askmind_rubric_geometry.pdf
+results/figures/askmind_rubric_geometry.png
+results/figures/complexity_curve.pdf
+results/figures/complexity_curve.png
+results/figures/goal_proximity.pdf
+results/figures/goal_proximity.png
+results/figures/ordinal_incremental_value.pdf
+results/figures/ordinal_incremental_value.png
+results/figures/representation_partial_robustness.pdf
+results/figures/representation_partial_robustness.png
+results/figures/representation_robustness.pdf
+results/figures/representation_robustness.png
+results/figures/spiral_stability_heatmap.pdf
+results/figures/spiral_stability_heatmap.png
+results/figures/top1_accuracy.pdf
+results/figures/top1_accuracy.png
+results/figures/turn_adjusted_spiral_stability.pdf
+results/figures/turn_adjusted_spiral_stability.png
+results/representation_trajectory_features.csv
+results/run_manifest.json
+results/run_manifest_v2.json
+results/run_manifest_v3.json
+results/tables/askbench_counts.csv
+results/tables/askbench_eval_correlations.csv
+results/tables/askbench_geometry_effects.csv
+results/tables/askbench_performance.csv
+results/tables/askbench_rubric_geometry.csv
+results/tables/askbench_summary.csv
+results/tables/complexity_results.csv
+results/tables/cross_representation_stability.csv
+results/tables/dataset_summary.csv
+results/tables/directional_replication.csv
+results/tables/geometry_effects.csv
+results/tables/model_performance.csv
+results/tables/ordinal_incremental_value.csv
+results/tables/representation_robustness.csv
+results/tables/theorem_sanity.csv
+results/tables/turn_adjusted_spiral_stability.csv
