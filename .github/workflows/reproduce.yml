@@ -1,12 +1,13 @@
-name: SIG CI
+name: SIG Full Reproduction
 
 on:
-  push:
-  pull_request:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
-  test:
+  reproduce:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,17 +23,102 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install huggingface_hub
 
-      - name: Run unit tests
-        run: pytest -q
-
-      - name: Check raw-data availability
-        shell: bash
+      - name: Create data directories
         run: |
-          if [ -f "data/questbench/GSM-Q.csv" ]; then
-            echo "Raw datasets found; running full reproduction."
-            python run_all.py --from-raw
-          else
-            echo "Raw datasets are intentionally not distributed in this repository."
-            echo "See data/README.md for download instructions."
-          fi
+          mkdir -p data/questbench
+          mkdir -p data/askbench/train
+          mkdir -p data/askbench/eval
+
+      - name: Download QuestBench
+        run: |
+          hf download belindazli/QuestBench \
+            --repo-type dataset \
+            --local-dir questbench_download
+
+          find questbench_download -name "GSM-Q.csv" -exec cp {} data/questbench/GSM-Q.csv \;
+          find questbench_download -name "GSME-Q.csv" -exec cp {} data/questbench/GSME-Q.csv \;
+          find questbench_download -name "Logic-Q.csv" -exec cp {} data/questbench/Logic-Q.csv \;
+          find questbench_download -name "Planning-Q.csv" -exec cp {} data/questbench/Planning-Q.csv \;
+
+      - name: Download AskBench training trajectories
+        run: |
+          hf download jialeuuz/askbench_train \
+            --repo-type dataset \
+            --local-dir askbench_train_download
+
+          find askbench_train_download -name "mind.jsonl" \
+            -exec cp {} data/askbench/train/mind.jsonl \;
+
+          find askbench_train_download -name "overconfidence.jsonl" \
+            -exec cp {} data/askbench/train/overconfidence.jsonl \;
+
+      - name: Download AskBench evaluation data
+        run: |
+          hf download jialeuuz/askbench_bench \
+            --repo-type dataset \
+            --local-dir askbench_eval_download
+
+          find askbench_eval_download -name "ask_mind.jsonl" \
+            -exec cp {} data/askbench/eval/ask_mind.jsonl \;
+
+          find askbench_eval_download -name "ask_mind_bbhde.jsonl" \
+            -exec cp {} data/askbench/eval/ask_mind_bbhde.jsonl \;
+
+          find askbench_eval_download -name "ask_mind_gpqade.jsonl" \
+            -exec cp {} data/askbench/eval/ask_mind_gpqade.jsonl \;
+
+          find askbench_eval_download -name "ask_mind_math500de.jsonl" \
+            -exec cp {} data/askbench/eval/ask_mind_math500de.jsonl \;
+
+          find askbench_eval_download -name "ask_mind_medqade.jsonl" \
+            -exec cp {} data/askbench/eval/ask_mind_medqade.jsonl \;
+
+          find askbench_eval_download -name "ask_overconfidence.jsonl" \
+            -exec cp {} data/askbench/eval/ask_overconfidence.jsonl \;
+
+      - name: Verify required datasets
+        run: |
+          test -f data/questbench/GSM-Q.csv
+          test -f data/questbench/GSME-Q.csv
+          test -f data/questbench/Logic-Q.csv
+          test -f data/questbench/Planning-Q.csv
+          test -f data/askbench/train/mind.jsonl
+          test -f data/askbench/train/overconfidence.jsonl
+
+          echo "Required datasets are present."
+
+      - name: Run full SIG reproduction
+        run: |
+          python run_all.py --from-raw
+
+      - name: Run representation robustness
+        run: |
+          python run_representation_robustness.py
+
+      - name: Run tests
+        run: |
+          pytest -q
+
+      - name: Create artifact manifest
+        run: |
+          echo "SIG Full Reproduction" > results/RUN_ARTIFACT_INFO.txt
+          echo "Commit: $GITHUB_SHA" >> results/RUN_ARTIFACT_INFO.txt
+          echo "Workflow run: $GITHUB_RUN_ID" >> results/RUN_ARTIFACT_INFO.txt
+          echo "Python:" >> results/RUN_ARTIFACT_INFO.txt
+          python --version >> results/RUN_ARTIFACT_INFO.txt
+          echo "" >> results/RUN_ARTIFACT_INFO.txt
+          echo "Generated files:" >> results/RUN_ARTIFACT_INFO.txt
+          find results -type f | sort >> results/RUN_ARTIFACT_INFO.txt
+
+      - name: Upload all generated results
+        uses: actions/upload-artifact@v4
+        with:
+          name: SIG-full-results-${{ github.run_number }}
+          path: |
+            results/
+            QA_REPORT.md
+            REPRODUCIBILITY.md
+          if-no-files-found: error
+          retention-days: 30
