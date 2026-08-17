@@ -1,0 +1,89 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python packaging / build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+wheels/
+pip-wheel-metadata/
+
+# Test / coverage / type-check caches
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+.tox/
+.nox/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE / editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+.cache/
+
+# Local environment / secrets
+.env
+.env.*
+!.env.example
+
+# Raw third-party benchmark data
+# Keep data/README.md in Git, but do not commit QuestBench or AskBench raw files.
+data/questbench/
+data/askbench/
+
+# Optional local model / embedding caches
+models/
+model_cache/
+.huggingface/
+hf_cache/
+
+# Local reproduction environments
+reproduction_env/
+.local/
+
+# LaTeX build artifacts, if manuscript files are ever added locally
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+
+# Keep source PDFs only if intentionally tracked.
+# Uncomment the next line if local PDFs should never be committed:
+# *.pdf
